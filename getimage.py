@@ -20,7 +20,7 @@ def download_a_page(input_url: str, num: int):
     image_urls = []
 
     for urls in view_urls:
-        time.sleep(1)
+        time.sleep(3)
         view_page = requests.get(urls)
         view_page_soup = BeautifulSoup(view_page.text, "html.parser")
         image_tags = view_page_soup.select("#wallpaper")
@@ -32,16 +32,15 @@ def download_a_page(input_url: str, num: int):
     print("OK，I have get the urls in this page.Let's download them.")
 
     for input_url in image_urls:
-        time.sleep(1)
+        time.sleep(3)
         print("Downloading url: " + input_url)
         down = requests.get(input_url)
         file_name = os.path.basename(input_url)
-        save_path = './images/' + file_name
+        save_path = './uploads/' + file_name
         if down.status_code == 200:
             image_content = down.content
             with open(save_path, 'wb') as file:
                 file.write(image_content)
-                print("A image has been stored :" + save_path)
         else:
             print('Something went wrong')
 
@@ -56,8 +55,8 @@ download_page_num = input("How many pages do you want to download?,please input 
 if not download_page_num:
     download_page_num = 10
 
-for i in range(1, download_page_num, 1):
-    print("We are downloading page: " + str(i))
-    download_a_page(url, i)
+for i in range(1, 2, 1):
     print("We don't want to bother this website ,so let's take a breathe,wait for 3 seconds.")
     time.sleep(3)
+    print("We are downloading page: " + str(i))
+    download_a_page(url, i)

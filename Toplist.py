@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 # 默认种子
 randomSeed = 'iKunJs'
+download_page_num = 30;
 
 
 def download_a_page(input_url: str, num: int):
@@ -47,17 +48,11 @@ def download_a_page(input_url: str, num: int):
 
 
 print("Do not download too much times,or the website load will be high")
-input_random_seed = input("Give me a random seed,The format is six letters, with arbitrary capitalization. \nWe will randomly download based on this seed.\nInput a seed:\n")
-if input_random_seed:
-    url = "https://wallhaven.cc/random?seed=" + input_random_seed + "&page="
-else:
-    url = "https://wallhaven.cc/random?seed=" + randomSeed + "&page="
-download_page_num = input("How many pages do you want to download?,please input a number,type:int,default:10\nPlease input :\n")
-if not download_page_num:
-    download_page_num = 10
+url = "https://wallhaven.cc/toplist?page="
 
-for i in range(1, download_page_num, 1):
+for i in range(9, download_page_num, 1):
+    print("We don't want to bother this website ,so let's take a breathe,wait for 3 seconds.")
     print("We are downloading page: " + str(i))
     download_a_page(url, i)
-    print("We don't want to bother this website ,so let's take a breathe,wait for 3 seconds.")
+
     time.sleep(3)
